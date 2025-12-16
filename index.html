@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>حالة الفيديو القادم - ALOORD EDIT AA</title>
+  <title>جاهزية الفيديو - ALOORD EDIT AA</title>
 
-  <!-- Cairo font (keeps your Arabic identity) -->
+  <!-- Cairo font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      /* Global glass UI theme */
+    :root {
       --bg: #0b0f18;
       --panel: rgba(255,255,255,.06);
       --panel2: rgba(255,255,255,.085);
@@ -21,24 +20,22 @@
       --muted: rgba(255,255,255,.62);
       --shadow: 0 20px 70px rgba(0,0,0,.45);
       --radius: 20px;
-      --radius2: 16px;
       --ease: cubic-bezier(.2,.8,.2,1);
       --ease2: cubic-bezier(.16,1,.3,1);
-
-      /* Brand accents (red/orange like your channel) */
-      --brand1: #ff1f3d; /* red hot */
-      --brand2: #ef4444; /* red */
-      --brand3: #b91c1c; /* deep red */
-
-      --ok: #22c55e;
-      --warn: #facc15;
-
-      --font: "Cairo", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans";
+      
+      /* Brand colors */
+      --brand1: #ff1f3d;
+      --brand2: #ef4444;
+      --brand3: #b91c1c;
+      --font: "Cairo", ui-sans-serif, system-ui;
+      
+      /* Responsive */
+      --safe-area: max(16px, 4vw);
     }
 
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg:#f6f7fb;
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f7fb;
         --panel: rgba(0,0,0,.04);
         --panel2: rgba(0,0,0,.055);
         --stroke: rgba(0,0,0,.1);
@@ -48,584 +45,481 @@
       }
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
       font-family: var(--font);
       color: var(--text);
       background:
         radial-gradient(1100px 560px at 18% 12%, rgba(255,31,61,.28), transparent 60%),
         radial-gradient(900px 520px at 85% 18%, rgba(239,68,68,.22), transparent 62%),
-        radial-gradient(900px 520px at 50% 96%, rgba(255,255,255,.10), transparent 65%),
         var(--bg);
-      padding: calc(clamp(12px, 2.2vw, 24px) + env(safe-area-inset-top)) calc(clamp(12px, 2.2vw, 24px) + env(safe-area-inset-right)) calc(clamp(12px, 2.2vw, 24px) + env(safe-area-inset-bottom)) calc(clamp(12px, 2.2vw, 24px) + env(safe-area-inset-left));
-      overflow-x:hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: var(--safe-area);
+      -webkit-tap-highlight-color: transparent;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    .wrap{
-      min-height:100%;
-      display:flex;
-      justify-content:center;
-      align-items:stretch;
-    }
-
-    .app{
-      width:min(1080px, 100%);
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-
-    /* Header */
-    .header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding: 14px 16px;
+    /* Main container */
+    .container {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(24px, 6vw, 40px);
+      padding: clamp(20px, 5vw, 40px);
       border-radius: var(--radius);
       background: linear-gradient(180deg, var(--panel2), var(--panel));
       border: 1px solid var(--stroke);
       box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-    .brand{
-      display:flex; align-items:center; gap:12px; min-width:0;
-    }
-    .logo{
-      width:42px; height:42px; border-radius: 16px;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 55%),
-        linear-gradient(135deg, rgba(239,68,68,.95), rgba(249,115,22,.9));
-      box-shadow: 0 10px 30px rgba(239,68,68,.15);
-      flex:0 0 auto;
-    }
-    .titles{min-width:0}
-    .titles h1{margin:0; font-size:clamp(14px, 1.15vw + 10px, 18px); letter-spacing:.2px}
-    .titles p{margin:2px 0 0; font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      font-size:12px;
-      color: var(--muted);
-      font-weight:800;
-      letter-spacing:.12em;
-      text-transform: uppercase;
-      margin-top:6px;
-      width: fit-content;
-    }
-    .pillDot{
-      width:10px; height:10px; border-radius:999px;
-      background: var(--ok);
-      box-shadow: 0 0 14px rgba(34,197,94,.75);
-      flex:0 0 auto;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      animation: floatIn 0.8s var(--ease2) both;
     }
 
-    /* Layout */
-    .grid{
-      display:grid;
-      grid-template-columns: 1.55fr 1fr;
-      gap:12px;
-      align-items:stretch;
-    }
-    @media (max-width: 980px){
-      .grid{grid-template-columns:1fr}
-    }
-
-    .panel{
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, var(--panel2), var(--panel));
-      border: 1px solid var(--stroke);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      overflow:hidden;
-    }
-
-    .panelBody{
-      padding: 16px;
-    }
-
-    .sectionTitle{
-      margin:0 0 8px;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing:.2px;
-    }
-    .subtle{
-      margin:0 0 14px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    /* Progress */
-    .progressRow{
-      display:flex;
-      align-items:baseline;
-      justify-content:space-between;
-      gap:12px;
-      margin-top: 8px;
-      margin-bottom: 10px;
-    }
-    .progressRow .label{
-      font-weight:700;
-      font-size:14px;
-      color: var(--text);
-    }
-    .progressRow .pct{
-      font-weight:900;
-      font-size:18px;
-      letter-spacing:.3px;
-    }
-    .progressShell{
-      width:100%;
-      padding: 6px;
-      border-radius: 999px;
-      border: 1px solid var(--stroke);
-      background: rgba(0,0,0,.18);
-    }
-    @media (prefers-color-scheme: light){
-      .progressShell{background: rgba(0,0,0,.04)}
-    }
-    .progressBar{
-      height: 22px;
-      width: 0%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--brand1), var(--brand2), var(--brand3));
-      box-shadow: 0 0 26px rgba(239,68,68,.42);
-      position:relative;
-      overflow:hidden;
-      transition: width .25s ease;
-    }
-    .progressBar::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background-image: linear-gradient(120deg,
-        rgba(255,255,255,0.22) 0,
-        rgba(255,255,255,0) 40%,
-        rgba(255,255,255,0.30) 60%,
-        rgba(255,255,255,0) 100%);
-      mix-blend-mode: screen;
-      pointer-events:none;
-    }
-
-    .statusText{
-      margin: 10px 0 0;
-      font-size: 13px;
-      color: var(--text);
-      opacity:.92;
-    }
-
-    /* Tasks */
-    .tasks{list-style:none; padding:0; margin: 12px 0 0}
-    .task{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      padding: 12px 12px;
-      border-radius: var(--radius2);
-      border: 1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
-      margin-bottom: 10px;
-      position:relative;
-      overflow:hidden;
-    }
-    .task::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: linear-gradient(120deg, rgba(255,255,255,.12), transparent 55%);
-      opacity:0;
-      transition: opacity .18s ease;
-      pointer-events:none;
-    }
-    .task:hover::before{opacity:1}
-    .dot{
-      width:14px; height:14px; border-radius:999px;
-      margin-top: 4px;
-      flex:0 0 auto;
-      box-shadow: 0 0 16px rgba(255,255,255,.05);
-    }
-    .dot.done{background: var(--ok); box-shadow: 0 0 14px rgba(34,197,94,.75)}
-    .dot.prog{background: var(--warn); box-shadow: 0 0 14px rgba(250,204,21,.7)}
-    .taskTitle{font-weight:900; font-size:14px; margin:0 0 2px}
-    .taskDesc{margin:0; font-size:13px; color: var(--muted); line-height:1.6}
-
-    /* Contacts */
-    .contactGrid{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top: 10px;
-    }
-    .btn{
-      appearance:none;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-size: 13px;
-      font-weight: 800;
-      cursor:pointer;
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      transition: transform .08s ease, filter .15s ease;
-      user-select:none;
-    }
-    .btn:hover{filter:brightness(1.08)}
-    .btn:active{transform: translateY(1px)}
-    .btn.primary{
-      border-color: rgba(239,68,68,.45);
-      background: linear-gradient(180deg, rgba(239,68,68,.30), rgba(239,68,68,.14));
-    }
-    .btn.secondary{
-      border-color: rgba(249,115,22,.45);
-      background: linear-gradient(180deg, rgba(249,115,22,.25), rgba(249,115,22,.12));
-    }
-
-    .divider{
-      height:1px;
-      background: var(--stroke);
-      margin: 14px 0;
-      opacity:.9;
-    }
-
-    .note{
-      border-radius: var(--radius2);
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.05);
-      padding: 12px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.7;
-    }
-    .note strong{color: var(--text)}
-    .note a{color: var(--text); text-decoration: underline; text-decoration-color: rgba(255,255,255,.35)}
-    .note a:hover{filter:brightness(1.08)}
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      font-size:12px;
-      font-weight:900;
-      margin-top: 8px;
-      width: fit-content;
-    }
-    .badgeLight{
-      width:10px; height:10px; border-radius:999px;
-      background: var(--ok);
-      box-shadow: 0 0 14px rgba(34,197,94,.75);
-    }
-
-    /* Small improvements on mobile */
-    @media (max-width: 520px){
-      .titles p{display:none}
-      .panelBody{padding: 14px}
-      .btn{padding: 9px 12px}
-    }
-  
-    /* Motion: smooth + subtle (keeps same UI, just more alive) */
-    @keyframes floatIn{
-      from{ transform: translateY(10px); opacity:0 }
-      to{ transform: translateY(0); opacity:1 }
-    }
-    @keyframes glowPulse{
-      0%,100%{ box-shadow: 0 0 0 rgba(255,31,61,.0) }
-      50%{ box-shadow: 0 0 24px rgba(255,31,61,.28) }
-    }
-    @keyframes sheen{
-      0%{ transform: translateX(-60%) }
-      100%{ transform: translateX(60%) }
-    }
-
-    .header, .panel{ animation: floatIn .45s ease both; }
-    .panel:nth-of-type(2){ animation-delay: .06s }
-    .panel:nth-of-type(3){ animation-delay: .10s }
-
-    /* Make interactions feel smoother */
-    .panel, .header, .task, .btn, .progressShell{
-      transition: transform .12s ease, filter .18s ease, background .18s ease, border-color .18s ease;
-      will-change: transform;
-    }
-    .panel:hover{ transform: translateY(-2px); }
-    .task:hover{ transform: translateY(-1px); }
-    .btn:hover{ transform: translateY(-1px); }
-    .btn:active{ transform: translateY(0px); }
-
-    /* Red UI accents (without changing layout) */
-    .logo{
+    /* Logo */
+    .logo {
+      width: clamp(80px, 20vw, 120px);
+      height: clamp(80px, 20vw, 120px);
+      border-radius: 25px;
       background:
         radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 55%),
         linear-gradient(135deg, rgba(255,31,61,.95), rgba(185,28,28,.90));
-      box-shadow: 0 10px 30px rgba(255,31,61,.18);
-      animation: glowPulse 2.8s ease-in-out infinite;
-    }
-    .pillDot, .badgeLight{
-      background: var(--brand2);
-      box-shadow: 0 0 14px rgba(255,31,61,.70);
+      box-shadow: 
+        0 10px 30px rgba(255,31,61,.18),
+        0 0 0 1px rgba(255,255,255,.1);
+      animation: glowPulse 3s ease-in-out infinite;
     }
 
-    .progressBar{
-      box-shadow: 0 0 28px rgba(255,31,61,.35);
-    }
-    .progressBar::after{
-      animation: sheen 1.7s ease-in-out infinite;
-    }
-
-    /* Subtle grain to match your vibe (very light) */
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
-      opacity:.08;
-      mix-blend-mode: overlay;
+    /* Progress section */
+    .progress-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(16px, 4vw, 24px);
     }
 
-
-    /* Ultra-smooth motion tuning */
-    html{ scroll-behavior:smooth; }
-    .header, .panel, .task, .btn, .progressShell, .progressBar{
-      transform: translateZ(0);
-      backface-visibility:hidden;
-    }
-    .panel, .header{
-      transition: transform .22s var(--ease2), filter .22s var(--ease2), border-color .22s var(--ease2);
-    }
-    .task, .btn{
-      transition: transform .18s var(--ease2), filter .22s var(--ease2), border-color .22s var(--ease2), background .22s var(--ease2);
-    }
-    .panel:hover{ transform: translateY(-4px); }
-    .task:hover{ transform: translateY(-2px); }
-    .btn:hover{ transform: translateY(-2px); }
-    .btn:active, .task:active, .panel:active{ transform: translateY(0px); }
-
-    /* Softer shadows on interaction */
-    .panel:hover, .header:hover{
-      filter: brightness(1.03);
-      border-color: rgba(255,255,255,.18);
+    .percentage {
+      font-size: clamp(64px, 16vw, 96px);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--brand1), var(--brand2), var(--brand3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 10px 30px rgba(255,31,61,.15);
+      letter-spacing: -2px;
     }
 
-    /* Scrollbar (desktop) */
-    .panel::-webkit-scrollbar, body::-webkit-scrollbar { width: 10px; height: 10px; }
-    .panel::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
-      background: rgba(255,255,255,.18);
+    .status-message {
+      font-size: clamp(18px, 4.5vw, 24px);
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.4;
+      color: var(--text);
+      min-height: 3em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
+    }
+
+    /* Progress bar */
+    .progress-container {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: clamp(12px, 3vw, 16px);
+      background: rgba(255,255,255,.08);
       border-radius: 999px;
-      border: 2px solid rgba(0,0,0,0);
-      background-clip: padding-box;
-    }
-    .panel::-webkit-scrollbar-track, body::-webkit-scrollbar-track { background: rgba(255,255,255,.04); }
-
-    /* Mobile-first spacing tweaks */
-    @media (max-width: 980px){
-      .grid{ gap: 12px; }
-      .header{ padding: 12px 14px; }
-      .logo{ width:40px; height:40px; }
-    }
-    @media (max-width: 520px){
-      .pill{ display:none; }
-      .badge{ display:none; }
-      .contactGrid{ gap:8px; }
-      .btn{ width:100%; justify-content:center; }
-      .task{ padding: 11px 11px; }
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--stroke);
     }
 
-
-    /* Reduce motion accessibility */
-    @media (prefers-reduced-motion: reduce){
-      .header, .panel, .logo{ animation:none !important; }
-      .progressBar::after{ animation:none !important; }
-      .panel:hover, .task:hover, .btn:hover{ transform:none !important; }
-      *{ scroll-behavior:auto !important; }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--brand1), var(--brand2), var(--brand3));
+      border-radius: 999px;
+      position: relative;
+      transition: width 1.2s var(--ease2);
+      box-shadow: 0 0 20px rgba(255,31,61,.25);
     }
 
+    .progress-fill::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255,255,255,.3), 
+        transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    /* YouTube button */
+    .youtube-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: clamp(16px, 4vw, 20px) clamp(24px, 6vw, 32px);
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      font-size: clamp(16px, 4vw, 18px);
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s var(--ease2);
+      box-shadow: 0 10px 30px rgba(255,0,0,.25);
+      margin-top: 10px;
+      min-width: 200px;
+      max-width: 100%;
+    }
+
+    .youtube-btn:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(255,0,0,.35);
+    }
+
+    .youtube-btn:active {
+      transform: translateY(-1px) scale(1.02);
+    }
+
+    .youtube-btn .icon {
+      font-size: 24px;
+      animation: bounce 2s infinite;
+    }
+
+    /* Animations */
+    @keyframes floatIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        box-shadow: 
+          0 10px 30px rgba(255,31,61,.18),
+          0 0 0 1px rgba(255,255,255,.1);
+      }
+      50% {
+        box-shadow: 
+          0 15px 40px rgba(255,31,61,.3),
+          0 0 0 1px rgba(255,255,255,.15);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    @keyframes percentagePulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      body {
+        padding: clamp(12px, 4vw, 20px);
+      }
+      
+      .container {
+        padding: clamp(16px, 5vw, 24px);
+        gap: clamp(20px, 6vw, 32px);
+      }
+      
+      .percentage {
+        font-size: clamp(48px, 12vw, 64px);
+      }
+      
+      .status-message {
+        font-size: clamp(16px, 4vw, 20px);
+      }
+      
+      .youtube-btn {
+        width: 100%;
+        padding: 18px 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .percentage {
+        font-size: clamp(40px, 10vw, 48px);
+      }
+      
+      .status-message {
+        font-size: clamp(14px, 3.5vw, 18px);
+      }
+      
+      .logo {
+        width: 70px;
+        height: 70px;
+      }
+    }
+
+    @media (max-height: 600px) {
+      .container {
+        gap: 20px;
+        padding: 20px;
+      }
+      
+      .percentage {
+        font-size: 48px;
+      }
+      
+      .status-message {
+        font-size: 18px;
+      }
+    }
+
+    /* Landscape orientation */
+    @media (max-height: 500px) and (orientation: landscape) {
+      body {
+        padding: 10px;
+      }
+      
+      .container {
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 20px;
+      }
+      
+      .logo {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .progress-section {
+        width: auto;
+        flex: 1;
+      }
+      
+      .youtube-btn {
+        margin-top: 0;
+        min-width: auto;
+      }
+    }
+
+    /* Touch device optimizations */
+    @media (hover: none) and (pointer: coarse) {
+      .youtube-btn:hover {
+        transform: none;
+      }
+      
+      .youtube-btn:active {
+        transform: scale(0.98);
+      }
+      
+      .youtube-btn {
+        min-height: 56px;
+      }
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      .logo, .percentage, .progress-fill, .youtube-btn {
+        animation: none !important;
+      }
+      
+      .progress-fill::after {
+        animation: none;
+      }
+    }
+
+    /* High contrast mode */
+    @media (prefers-contrast: high) {
+      .progress-bar {
+        border-width: 2px;
+      }
+      
+      .youtube-btn {
+        border: 2px solid white;
+      }
+    }
+
+    /* Loading animation for percentage */
+    .percentage.animating {
+      animation: percentagePulse 0.5s var(--ease2);
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <main class="app">
-
-      <!-- Header -->
-      <header class="header">
-        <div class="brand">
-          <div class="logo" aria-hidden="true"></div>
-          <div class="titles">
-            <h1>ALOORD EDIT AA — حالة الفيديو القادم</h1>
-            <p>نسبة الجاهزية + تفاصيل مراحل الشغل الحالية (واجهة عالمية بنفس ستايل الشات)</p>
-            <div class="pill"><span class="pillDot"></span><span>LIVE STATUS</span></div>
-          </div>
+  <div class="container">
+    <div class="logo"></div>
+    
+    <div class="progress-section">
+      <div class="percentage" id="percentage">0%</div>
+      
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
         </div>
-
-        <div class="badge" title="Live status">
-          <span class="badgeLight"></span>
-          <span>الحالة: شغّالين</span>
-        </div>
-      </header>
-
-      <section class="grid">
-
-        <!-- Main: Status -->
-        <article class="panel">
-          <div class="panelBody">
-            <h2 class="sectionTitle">جاهزية الفيديو القادم</h2>
-            <p class="subtle">هذا القسم يوضح نسبة الجاهزية مع تقسيمة مراحل الشغل. ما في حكي كثير — بس الوضع الحقيقي.</p>
-
-            <div class="progressRow">
-              <div class="label">نسبة الجاهزية</div>
-              <div class="pct" id="progressPercentText">0%</div>
-            </div>
-
-            <div class="progressShell" aria-label="progress">
-              <div class="progressBar" id="progressBar"></div>
-            </div>
-
-            <p class="statusText" id="statusText">...</p>
-
-            <div class="divider"></div>
-
-            <h3 class="sectionTitle" style="margin-top:0">تفاصيل حالة العمل</h3>
-
-            <ul class="tasks">
-              <li class="task">
-                <span class="dot done"></span>
-                <div>
-                  <p class="taskTitle">الصورة المصغّرة</p>
-                  <p class="taskDesc">✅ تم إنشاء الصورة المصغّرة وجاهزة للنشر.</p>
-                </div>
-              </li>
-
-              <li class="task">
-                <span class="dot done"></span>
-                <div>
-                  <p class="taskTitle">تصوير الفيديو</p>
-                  <p class="taskDesc">✅ تم تصوير الفيديو بالكامل.</p>
-                </div>
-              </li>
-
-              <li class="task">
-                <span class="dot done"></span>
-                <div>
-                  <p class="taskTitle">مونتاج المقدّمة</p>
-                  <p class="taskDesc">✅ المقدّمة جاهزة ومونتاجة بشكل قوي.</p>
-                </div>
-              </li>
-
-              <li class="task">
-                <span class="dot prog"></span>
-                <div>
-                  <p class="taskTitle">المونتاج المتبقي</p>
-                  <p class="taskDesc">⏳ ضايل فقط تجميع اللقطات + قص الأجزاء الغير لازمة.</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </article>
-
-        <!-- Side: Contacts & last video -->
-        <aside class="panel">
-          <div class="panelBody">
-            <h2 class="sectionTitle">طرق التواصل مع عبدالرحمن</h2>
-            <p class="subtle">اختصرها: إذا بدك تتواصل، اختار زر واحد وخلاص.</p>
-
-            <div class="contactGrid">
-              <a class="btn primary" href="mailto:aloordeditaa0@gmail.com" target="_blank" rel="noopener">
-                📧 بريد
-              </a>
-              <a class="btn secondary" href="https://t.me/aloord_edit" target="_blank" rel="noopener">
-                📨 تيليجرام
-              </a>
-              <a class="btn" href="https://www.instagram.com/aloord_edet" target="_blank" rel="noopener">
-                📸 إنستغرام
-              </a>
-              <a class="btn" href="https://www.youtube.com/@ALOORDEditAA" target="_blank" rel="noopener">
-                ▶️ يوتيوب
-              </a>
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="note">
-              <strong>تنبيه بسيط:</strong><br>
-              إذا ما حطّيت لايك على آخر فيديو، لا تراسلني 😎<br>
-              <a href="https://www.youtube.com/@ALOORDEditAA" target="_blank" rel="noopener">افتح القناة وحط لايك أولاً</a>
-            </div>
-
-            <div class="divider"></div>
-
-            <h3 class="sectionTitle" style="margin-top:0">آخر فيديو على القناة</h3>
-            <p class="subtle" style="margin-bottom:10px">
-              ما في YouTube API هون. زر واحد يفتح صفحة الفيديوهات مباشرة.
-            </p>
-            <a class="btn primary" href="https://www.youtube.com/@ALOORDEditAA/videos" target="_blank" rel="noopener">
-              🎬 شاهد أحدث فيديوهات القناة
-            </a>
-          </div>
-        </aside>
-
-      </section>
-    </main>
+      </div>
+      
+      <div class="status-message" id="statusMessage">جاري التحميل...</div>
+    </div>
+    
+    <a href="https://www.youtube.com/@ALOORDEditAA" 
+       target="_blank" 
+       rel="noopener" 
+       class="youtube-btn">
+      <span class="icon">▶️</span>
+      <span>قناتي على يوتيوب</span>
+    </a>
   </div>
 
   <script>
-    // نسبة الجاهزية
-    const progress = 95;
-
-    const bar = document.getElementById("progressBar");
-    const percentText = document.getElementById("progressPercentText");
-    const statusText = document.getElementById("statusText");
-
-    const statusMessage =
-      progress === 100
-        ? "الفيديو جاهز 100% — النشر قريب جدًا."
-        : progress >= 80
-        ? "قربنا نخلص — باقي رتوش بسيطة."
-        : progress >= 50
-        ? "الشغل ماشي — باقي شوية تعديلات."
-        : progress >= 25
-        ? "نص الطريق — لسه في شغل واضح."
-        : "بداية التحضير — لا تستعجل.";
-
-    // أنيميشن تعبئة شريط التقدم
-    window.addEventListener("load", () => {
+    // نسبة الجاهزية - يمكن تغيير هذه القيمة
+    const progress = 100;
+    
+    // الجمل حسب النسبة
+    const messages = {
+      100: "الفيديو صااااااار جاااااهز 🎉🔥",
+      90: "قربنا نخلص... باقي شوية رتوش بسيطة!",
+      80: "خلصنا أغلب الشغل... باقي التفاصيل النهائية",
+      70: "الشغل ماشي تمام... في تقدم مستمر",
+      60: "أكثر من النص... في تقدم جيد",
+      50: "وصلنا منتصف الطريق... استمرار",
+      40: "في تقدم... الشغل مستمر",
+      30: "ما زلنا في البداية... تحلي بالصبر",
+      20: "بداية العمل... جاري التجهيز",
+      10: "التحضيرات الأولية... قريباً نبدأ",
+      0: "جاري التحضير... انتظر قليلاً"
+    };
+    
+    const percentageEl = document.getElementById('percentage');
+    const progressFill = document.getElementById('progressFill');
+    const statusMessage = document.getElementById('statusMessage');
+    
+    // دالة للحصول على الجملة المناسبة
+    function getStatusMessage(progress) {
+      if (progress === 100) return messages[100];
+      
+      // البحث عن أقرب نسبة متوفرة
+      const availablePercentages = Object.keys(messages).map(Number).sort((a, b) => b - a);
+      for (let percent of availablePercentages) {
+        if (progress >= percent) {
+          return messages[percent];
+        }
+      }
+      
+      return messages[0];
+    }
+    
+    // تحميل الصفحة
+    window.addEventListener('load', () => {
       const safeProgress = Math.max(0, Math.min(100, progress));
-      let start = null;
-      const duration = 1100; // ms
-      const easeOut = (x) => 1 - Math.pow(1 - x, 3);
-
-      // Set final width using CSS transition for buttery feel
-      bar.style.transition = "width 1100ms var(--ease2)";
-      bar.style.width = safeProgress + "%";
-
-      const step = (ts) => {
-        if(!start) start = ts;
-        const t = Math.min(1, (ts - start) / duration);
-        const v = Math.round(easeOut(t) * safeProgress);
-        percentText.textContent = v + "%";
-        if(t < 1) requestAnimationFrame(step);
-        else percentText.textContent = safeProgress + "%";
-      };
-
-      statusText.textContent = statusMessage;
-      requestAnimationFrame(step);
+      const message = getStatusMessage(safeProgress);
+      
+      // عرض الرسالة مباشرة
+      statusMessage.textContent = message;
+      
+      // تأثير العد التنازلي للنسبة
+      let currentPercent = 0;
+      const duration = 1500; // 1.5 ثانية
+      const increment = safeProgress / (duration / 16); // 60fps
+      
+      function animatePercentage() {
+        if (currentPercent < safeProgress) {
+          currentPercent += increment;
+          if (currentPercent > safeProgress) currentPercent = safeProgress;
+          
+          percentageEl.textContent = Math.round(currentPercent) + '%';
+          progressFill.style.width = currentPercent + '%';
+          
+          // إضافة تأثير بالنبض عند تغيير النسبة
+          if (Math.round(currentPercent) % 10 === 0 || currentPercent === safeProgress) {
+            percentageEl.classList.add('animating');
+            setTimeout(() => {
+              percentageEl.classList.remove('animating');
+            }, 500);
+          }
+          
+          requestAnimationFrame(animatePercentage);
+        } else {
+          percentageEl.textContent = safeProgress + '%';
+          progressFill.style.width = safeProgress + '%';
+          
+          // تأثير خاص عند الوصول إلى 100%
+          if (safeProgress === 100) {
+            setTimeout(() => {
+              percentageEl.style.animation = 'percentagePulse 0.8s ease-in-out infinite';
+            }, 300);
+          }
+        }
+      }
+      
+      // بدء الرسوم المتحركة بعد تأخير بسيط
+      setTimeout(() => {
+        requestAnimationFrame(animatePercentage);
+      }, 500);
     });
+    
+    // تحسين تجربة اللمس
+    document.addEventListener('touchstart', function() {}, { passive: true });
+    
+    // إضافة تأثير اهتزاز خفيف للزر عند النقر (للهواتف)
+    const youtubeBtn = document.querySelector('.youtube-btn');
+    youtubeBtn.addEventListener('click', function(e) {
+      this.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 150);
+    });
+    
+    // تحسين الأداء على الأجهزة المحمولة
+    if ('ontouchstart' in window) {
+      document.body.classList.add('touch-device');
+    }
   </script>
 </body>
 </html>
